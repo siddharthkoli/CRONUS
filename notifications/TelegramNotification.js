@@ -37,14 +37,14 @@ class TelegramNotification extends BaseNotification {
 
     static analyzeCommands(data) {
         data.forEach((update) => {
-            if (!update.message.text) continue;
+            if (!update.message.text) return;
             if (!update.message.entities && update.message.text) {
                 if (update.message.text == 'test') {
                     console.log(`Working`);
                     new TelegramNotification(update.message.from.id).sendNotification('Working');
                 }
                 Logger.logMessage({ updateId: update.update_id, user: update.message.chat.first_name, chatId: update.message.chat.id, msg: update.message.text });
-                continue;
+                return;
             }
             switch (update.message.text) {
                 // all commands will come here.
