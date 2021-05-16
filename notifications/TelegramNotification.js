@@ -68,7 +68,7 @@ class TelegramNotification extends BaseNotification {
                 if (!data.result) return;
                 console.log(`${data}`);
                 TelegramNotification.checkAndAddNewUsers(data);
-                TelegramNotification.analyzeCommands(data.result);
+                // TelegramNotification.analyzeCommands(data.result);
             });
         });
         getReq.end();
