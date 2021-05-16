@@ -3,6 +3,7 @@ const excelAPI = require('../utils/excelAPI');
 const TelegramNotification = require("../notifications/TelegramNotification");
 const BaseInvestmentJob = require("./BaseInvestmentJob");
 const EmailNotification = require('../notifications/EmailNotification');
+const Logger = require('../Logger/Logger');
 
 class NationalSavingsCertificate extends BaseInvestmentJob {
     constructor(data) {
@@ -27,11 +28,13 @@ class NationalSavingsCertificate extends BaseInvestmentJob {
                 }
                 let nsc = new NationalSavingsCertificate(data);
                 const masterTelegramNotification = new TelegramNotification(process.env[`${data.master.toUpperCase()}_CHAT_ID`]);
-                masterTelegramNotification.sendNotification(td.generateNotificationString());
+                masterTelegramNotification.sendNotification(nsc.generateNotificationString());
+                Logger.logNationalSavingsCertificate({to: data.master});
                 const telegramNotification = new TelegramNotification(process.env[`${nsc._names.toUpperCase()}_CHAT_ID`]);
-                telegramNotification.sendNotification(telegramNotification.generateWelcomeMessage());
+                telegramNotification.sendNotification(nsc.generateNotificationString());
+                Logger.logNationalSavingsCertificate({to: nsc._names.toUpperCase()});                
                 const emailNotification = new EmailNotification(row.getCell(9).value);
-                emailNotification.sendNotification(td.generateNotificationString());
+                emailNotification.sendNotification(nsc.generateNotificationString());
             }
         });
     }

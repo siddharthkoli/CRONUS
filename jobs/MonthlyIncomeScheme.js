@@ -2,6 +2,7 @@ const BaseInvestmentJob = require('./BaseInvestmentJob');
 const excelAPI = require('../utils/excelAPI');
 const path = require('path');
 const TelegramNotification = require('../notifications/TelegramNotification');
+const Logger = require('../Logger/Logger');
 
 class MonthlyIncomeScheme extends BaseInvestmentJob {
     constructor(data) {
@@ -29,10 +30,12 @@ class MonthlyIncomeScheme extends BaseInvestmentJob {
                 };
                 let mis = new MonthlyIncomeScheme(data);
                 const masterTelegramNotification = new TelegramNotification(process.env[`${data.master.toUpperCase()}_CHAT_ID`]);
-                masterTelegramNotification.sendNotification(td.generateNotificationString());
+                masterTelegramNotification.sendNotification(mis.generateNotificationString());
+                Logger.logMonthlyIncomeScheme({to: data.master});
                 for (let user in mis._names) {
                     if (mis._names[user] == undefined) continue;
                     new TelegramNotification(process.env[`${mis._names[user].split(" ")[0].toUpperCase()}_CHAT_ID`]).sendNotification(mis.generateNotificationString());
+                    Logger.logMonthlyIncomeScheme({to: mis._names[user].split(" ")[0].toUpperCase()});
                 }
             }
         });
