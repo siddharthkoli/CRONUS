@@ -35,7 +35,7 @@ module.exports = class Logger {
     }
 
     static logMessage(data) {
-        let content = `${Date.now()} ${data.update_id} ${data.user} ${data.chatId} ${data.msg}\n`;
+        let content = `${Date.now()} ${data.updateId} ${data.user} ${data.chatId} ${data.msg}\n`;
         new Logger().logToFile('Telegram_Updates.txt', content);
     }
 }
