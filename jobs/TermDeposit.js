@@ -3,6 +3,7 @@ const EmailNotification = require('../notifications/EmailNotification');
 const TelegramNotification = require('../notifications/TelegramNotification');
 const BaseInvestmentJob = require('./BaseInvestmentJob');
 const path = require('path');
+const Logger = require('../Logger/Logger');
 
 class TermDeposit extends BaseInvestmentJob {
     constructor(data) {
@@ -32,10 +33,12 @@ class TermDeposit extends BaseInvestmentJob {
                 let td = new TermDeposit(data);
                 const masterTelegramNotification = new TelegramNotification(process.env[`${data.master.toUpperCase()}_CHAT_ID`]);
                 masterTelegramNotification.sendNotification(td.generateNotificationString());
+                Logger.logTermDeposit({to: data.master});
                 for (let user in td._names) {
                     if (td._names[user] == undefined) continue;
                     const telegramNotification = new TelegramNotification(process.env[`${td._names[user].split(" ")[0].toUpperCase()}_CHAT_ID`]);
                     telegramNotification.sendNotification(td.generateNotificationString());
+                    Logger.logTermDeposit({to: td._names[user].split(" ")[0].toUpperCase()});
                 }
                 const emailNotification = new EmailNotification(row.getCell(9).value);
                 emailNotification.sendNotification(td.generateNotificationString());
