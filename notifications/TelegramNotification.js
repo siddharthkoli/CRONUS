@@ -66,7 +66,7 @@ class TelegramNotification extends BaseNotification {
             res.on('data', function (data) {
                 data = JSON.parse(data);
                 if (!data.result) return;
-                console.log(`${data}`);
+                // console.log(`${data}`);
                 TelegramNotification.checkAndAddNewUsers(data);
                 // TelegramNotification.analyzeCommands(data.result);
             });
