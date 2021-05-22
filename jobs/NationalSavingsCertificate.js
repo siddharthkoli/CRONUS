@@ -11,7 +11,7 @@ class NationalSavingsCertificate extends BaseInvestmentJob {
     }
 
     static async readExcel() {
-        const worksheet = await excelAPI.getWorksheet(path.join(__dirname, '../', '/ExcelFiles/jobs.xlsx'), 2);
+        const worksheet = await excelAPI.getWorksheet(path.join(__dirname, '../', '/ExcelFiles/jobs.xlsx'), 1);
         worksheet.eachRow((row, rowNumber) => {
             if (rowNumber == 1) return;
             const currentDate = new Date();

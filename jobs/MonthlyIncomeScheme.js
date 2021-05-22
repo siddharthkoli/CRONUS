@@ -10,7 +10,7 @@ class MonthlyIncomeScheme extends BaseInvestmentJob {
     }
 
     static async readExcel() {
-        const worksheet = await excelAPI.getWorksheet(path.join(__dirname, '../', '/ExcelFiles/jobs.xlsx'), 1);
+        const worksheet = await excelAPI.getWorksheet(path.join(__dirname, '../', '/ExcelFiles/jobs.xlsx'), 2);
         worksheet.eachRow((row, rowNumber) => {
             if (rowNumber == 1) return;
             const maturityDate = new Date(row.getCell(5))
@@ -43,7 +43,7 @@ class MonthlyIncomeScheme extends BaseInvestmentJob {
     }
 
     generateNotificationString() {
-        return `This is to remind you that your account number ${this._accNo} should be credited with Rs. ${this._intDeposited} today (${this._date}) for the principal of Rs. ${this._principal} in ${this._medium}. This account is in the name of ${this._names.name1}${this._names.name2 == undefined ? '' : ` and ${this._names.name2}`}.\n\nSent with concern,\nCRONUS.`;
+        return `This is to remind you that your account number ${this._accNo} should be credited with Rs. ${this._intDeposited} today (${this._date}) for the principal of Rs. ${this._principal} in ${this._medium}. This account is in the name of ${this._names.name1}${this._names.name2 == undefined ? '' : ` and ${this._names.name2}`} for Monthly Income Scheme.\n\nSent with concern,\nCRONUS.`;
     }
 }
 
