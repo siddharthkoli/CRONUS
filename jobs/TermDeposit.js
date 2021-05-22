@@ -68,7 +68,7 @@ class TermDeposit extends BaseInvestmentJob {
     }
 
     generateNotificationString() {
-        return `This is to remind you that your account number ${this._accNo} should be credited with Rs. ${this._intDeposited} today (${this._date}) for the principal of Rs. ${this._principal} in ${this._medium}. This account is in the name of ${this._names.name1}${this._names.name2 == undefined ? '' : ` and ${this._names.name2}`}.\n\nSent with concern,\nCRONUS.`;
+        return `This is to remind you that your account number ${this._accNo} should be credited with Rs. ${this._intDeposited} today (${this._date}) for the principal of Rs. ${this._principal} in ${this._medium}. This account is in the name of ${this._names.name1}${this._names.name2 == undefined ? '' : ` and ${this._names.name2}`} for Term Deposit.\n\nSent with concern,\nCRONUS.`;
     }
 }
 
