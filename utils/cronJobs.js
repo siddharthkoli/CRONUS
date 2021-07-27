@@ -45,7 +45,7 @@ const TietoEndDayCounterCRON = () => {
 }
 
 const getTelegramUpdate = () => {
-    cron.schedule('*/1 * * * *', () => {
+    cron.schedule('0 */1 * * *', () => {
         TelegramNotification.getUpdates();
     });
 }
